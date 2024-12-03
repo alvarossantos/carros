@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data"><!--Usaremos varios tipos de dados-->
+        {% csrf_token %}
+        
+        <table>
+            {{ form.as_table }}<!--Mostra o formulário-->
+        </table>
+
+        <input type="submit" value="Cadastrar" class="btn btn-primary">
+    </form>
+
+{% endblock %}
