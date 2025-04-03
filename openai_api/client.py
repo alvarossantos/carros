@@ -1,8 +1,6 @@
 from openai import OpenAI
 
-client = OpenAI(
-    api_key='API_KEY'
-    )
+client = OpenAI(api_key='API_KEY')
 
 def get_car_ai_bio(model, brand, year):
     try:
