@@ -1,8 +1,8 @@
 from openai import OpenAI
 
-#client = OpenAI(api_key='API_KEY')
-client = OpenAI(base_url="http://127.0.0.1:1234/v1", api_key="lm-studio")
-MODEL = "llama-3.2-1b-instruct"  # Make sure this model exists in LM Studio
+client = OpenAI(
+    api_key='API_KEY'
+    )
 
 def get_car_ai_bio(model, brand, year):
     try:
@@ -11,7 +11,7 @@ def get_car_ai_bio(model, brand, year):
         Organize as informações de forma clara e concisa.
         """
         completion = client.chat.completions.create(
-            model=MODEL,
+            model="gpt-4",
             max_tokens=1000,
             messages=[
                 {
@@ -26,4 +26,4 @@ def get_car_ai_bio(model, brand, year):
         )
         return completion.choices[0].message.content
     except Exception as e:
-        return "Não foi possível encontrar informações para este veículo." # Mensagem de erro mais informativa
+        return "Carro em excelente condição, único dono, venha conferir!"
