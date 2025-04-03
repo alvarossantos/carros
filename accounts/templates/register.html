@@ -1,32 +1,156 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .register-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 0 20px;
+    }
 
-    <form method="post">
-        {% csrf_token %}
-        
-        <div class="form-group">
-            {{ user_form.username.errors }}
-            <label>Usuário: </label>
-            {{ user_form.username }}
-        </div>
-        <br>
-        <div class="form-group">    
-            {{ user_form.password1.errors }}
-            <label>Senha: </label>
-            {{ user_form.password1 }}
-        </div>    
-        <br>
-        <div class="form-group">
-            {{ user_form.password2.errors }}
-            <label>Confirmação de Senha: </label>
-            {{ user_form.password2 }}
-        </div>    
-        <br>
-        <div class="form-group">
-            <input type="submit" value="Cadastrar">
-        </div>
-        
-    </form>
+    .register-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+    }
 
+    .register-card h1 {
+        color: #333;
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+        font-size: 0.95rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .btn-register {
+        width: 100%;
+        padding: 14px;
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-register:hover {
+        background-color: #2ecc71;
+        transform: translateY(-2px);
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 25px;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .login-link a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+
+    .error-message {
+        color: #e74c3c;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    .password-requirements {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 5px;
+        line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+        .register-card {
+            padding: 30px 20px;
+        }
+        
+        .register-container {
+            margin: 30px auto;
+        }
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-card">
+        <h1>Criar nova conta</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ user_form.username.id_for_label }}">Nome de usuário</label>
+                {{ user_form.username }}
+                {% if user_form.username.errors %}
+                    <div class="error-message">{{ user_form.username.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ user_form.password1.id_for_label }}">Senha</label>
+                {{ user_form.password1 }}
+                <div class="password-requirements">
+                    Sua senha deve conter pelo menos 8 caracteres, não pode ser muito comum e não pode ser inteiramente numérica.
+                </div>
+                {% if user_form.password1.errors %}
+                    <div class="error-message">{{ user_form.password1.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ user_form.password2.id_for_label }}">Confirmação de senha</label>
+                {{ user_form.password2 }}
+                {% if user_form.password2.errors %}
+                    <div class="error-message">{{ user_form.password2.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn-register">Cadastrar</button>
+            
+            <div class="login-link">
+                <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login</a></p>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

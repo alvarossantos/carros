@@ -1,63 +1,140 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <style>
+<style>
+    .delete-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .delete-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .delete-card h1 {
+        color: #333;
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        font-weight: 700;
+    }
+
+    .delete-card p {
+        color: #555;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin-bottom: 30px;
+    }
+
+    .car-info {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .car-info strong {
+        color: #333;
+        font-size: 1.2rem;
+    }
+
     .buttons-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
     }
 
     .btn {
-      display: inline-block;
-      background-color: #0096c7;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-      margin: 0 10px;
-    }
-
-    .btn:hover {
-      background-color: #108eb8;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        min-width: 150px;
+        border: none;
     }
 
     .btn-danger {
-      background-color: #d9534f;
-      text-decoration: none !important;
+        background-color: #e74c3c;
+        color: white;
     }
 
     .btn-danger:hover {
-      background-color: #d2221c;
+        background-color: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
     }
 
-    .error-message {
-      color: #d9534f;
-      font-size: 14px;
-      margin-top: 5px;
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
     }
 
-    a {
-      text-decoration: none !important;
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+        transform: translateY(-2px);
     }
-  </style>
-  <div class="card">
-    <div class="card-header">
-      <h1 class="card-title">Deletar Carro</h1>
-    </div>
-    <div class="card-body">
-      <p>Tem certeza que deseja deletar o carro <strong>{{ object.brand }} {{ object.model }}</strong>?</p>
-      <form method="post">
-        {% csrf_token %}
-        <div class="buttons-container">
-          <button type="submit" class="btn btn-danger">Deletar Carro</button>
-          <a href="{% url 'car_update' pk=object.pk %}" class="btn btn-secondary">Cancelar</a>
+
+    .warning-icon {
+        color: #e74c3c;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .buttons-container {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="warning-icon">
+            <i class="fas fa-exclamation-triangle"></i>
         </div>
-      </form>
+        
+        <h1>Confirmar Exclusão</h1>
+        
+        <p>Você está prestes a excluir permanentemente o seguinte veículo:</p>
+        
+        <div class="car-info">
+            <strong>{{ object.brand }} {{ object.model }}</strong><br>
+            Placa: {{ object.plate }}<br>
+            Ano: {{ object.factory_year }}
+        </div>
+        
+        <p>Esta ação não pode ser desfeita. Tem certeza que deseja continuar?</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="buttons-container">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Confirmar Exclusão
+                </button>
+                <a href="{% url 'car_update' pk=object.pk %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+            </div>
+        </form>
     </div>
-  </div>
+</div>
+
+<!-- Adicionar Font Awesome para os ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
