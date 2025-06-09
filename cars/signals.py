@@ -17,16 +17,14 @@ def car_inventory_update():
 
 @receiver(pre_save, sender=Car)
 def car_pre_save(sender, instance, **kwargs):
-    if not instance.bio:
-        instance.bio = "Carro em excelente condição, único dono, venha conferir!"
     
-    #Se FOR UTILIZAR API DA OPENAI
-    '''
+    #if not instance.bio:
+    #    instance.bio = "Carro em excelente condição, único dono, venha conferir!"
+    
     ai_bio = get_car_ai_bio(
         instance.model, instance.brand, instance.factory_year
     )
     instance.bio = ai_bio
-    '''
 
 
 
