@@ -35,7 +35,7 @@ Bem-vindo ao **Carros App**, uma solução completa e inteligente para o gerenci
 Este projeto une tecnologias robustas para entregar a melhor experiência:
 
 * **Backend:** Python | Django
-* **Banco de Dados:** SQLite3 (padrão)
+* **Banco de Dados:** PostgreSQL
 * **Inteligência Artificial:** Gemini API
 * **Frontend:** HTML5 | CSS3 (Templates Django)
 * **Deployment:** uWSGI
